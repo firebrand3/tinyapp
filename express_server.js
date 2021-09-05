@@ -108,7 +108,6 @@ app.post("/logout", (req, res) => {
 
 app.get("/register", (req, res) => {
   templateVars = { user: users[req.cookies.user_id] };
-  console.log(templateVars);
   res.render("urls_register", templateVars);
 });
 
@@ -117,6 +116,10 @@ app.post("/register", (req, res) => {
     if (users[user].email === req.body.email) {
       res.status(400).send("This email is already registered");
     }
+  }
+
+  if (req.body.email === '' || req.body.password === '') {
+    res.status(400).send("Email or Password not entered");
   }
 
   const user_id = generateRandomString(4);
