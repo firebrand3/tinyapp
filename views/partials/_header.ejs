@@ -18,10 +18,9 @@
           <button type="submit" class="btn btn-outline-dark">Logout</button>
         </form>
         <% } else { %>
-          <form method="POST" action="/login" class="form-inline">
-            <input class="form-control" type="text" name="user_id" placeholder="User ID"
-              style="width: 300px; margin: 1em" required>
-            <button type="submit" class="btn btn-outline-dark">Login</button>
+          <form>
+            <a class="btn btn-success" role="button" aria-disabled="true" href="/login">Login</a>
+            <a class="btn btn-success" role="button" aria-disabled="true" href="/register">Register</a>
           </form>
           <% } %>
     </div>
