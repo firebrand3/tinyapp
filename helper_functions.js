@@ -1,26 +1,24 @@
-const generateRandomString = function (length) {
+const generateRandomString = (length) => {
   return Math.random().toString(20).substr(2, length);
 };
 
-const checkUrl = (url) => {
-  return urlDatabase[url];
+const checkUrl = (url, database) => {
+  return database[url];
 };
 
 
 const verifyUser = (input, database) => {
-
   // for (let user in database) {
   //   if (database[user].email === input.email && database[user].password === input.password) {
   //     return database[user];
   //   }
   let user;
-  for (item in database) {
+  for (let item in database) {
     if (database[item].email === input.email) {
       user = item
       return false
     }
   }
-
   return database[user];
 }
 
@@ -46,7 +44,7 @@ const createUser = (user, database) => {
 }
 
 const verifyUserEmail = (input, database) => {
-  for (user in database) {
+  for (let user in database) {
     if (database[user].email === input.email) {
       return true;
     }
@@ -54,4 +52,24 @@ const verifyUserEmail = (input, database) => {
   return false;
 }
 
-module.exports = { generateRandomString, checkUrl, verifyUser, getUserInfo, createUser, verifyUserEmail }
+const activeUser = (cookie, database) => {
+  for (let user in database) {
+    if (cookie === user) {
+      // return database[user].email;
+      return database[user];
+    }
+  }
+};
+
+const userUrlProfile = (id, database) => {
+  let activeUserId = id;
+  let urls = {};
+  for (let user in database) {
+    if (database[user].user_id === activeUserId) {
+      urls[user] = database[user];
+    }
+  }
+  return urls;
+};
+
+module.exports = { generateRandomString, checkUrl, verifyUser, getUserInfo, createUser, verifyUserEmail, activeUser, userUrlProfile }
