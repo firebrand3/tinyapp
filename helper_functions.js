@@ -31,6 +31,15 @@ const getUserInfo = (email, database) => {
   }
 }
 
+const verifyUserEmail = (input, database) => {
+  for (let user in database) {
+    if (database[user].email === input) {
+      return true;
+    }
+  }
+  return false;
+}
+
 
 const createUser = (user, database) => {
   const user_id = generateRandomString(4); 
@@ -43,14 +52,6 @@ const createUser = (user, database) => {
   return newUser;
 }
 
-const verifyUserEmail = (input, database) => {
-  for (let user in database) {
-    if (database[user].email === input.email) {
-      return true;
-    }
-  }
-  return false;
-}
 
 const activeUser = (cookie, database) => {
   for (let user in database) {
@@ -61,15 +62,15 @@ const activeUser = (cookie, database) => {
   }
 };
 
-const userUrlProfile = (id, database) => {
+const urlsForUser = (id, database) => {
   let activeUserId = id;
   let urls = {};
-  for (let user in database) {
-    if (database[user].user_id === activeUserId) {
-      urls[user] = database[user];
+  for (let url in database) {
+    if (database[url].userID === activeUserId) {
+      urls[url] = database[url];
     }
   }
   return urls;
 };
 
-module.exports = { generateRandomString, checkUrl, verifyUser, getUserInfo, createUser, verifyUserEmail, activeUser, userUrlProfile }
+module.exports = { generateRandomString, checkUrl, verifyUser, getUserInfo, createUser, verifyUserEmail, activeUser, urlsForUser }
