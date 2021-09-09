@@ -63,8 +63,8 @@ const activeUser = (cookie, database) => {
 };
 
 const urlsForUser = (id, database) => {
-  let activeUserId = id;
-  let urls = {};
+  const activeUserId = id;
+  const urls = {};
   for (let url in database) {
     if (database[url].userID === activeUserId) {
       urls[url] = database[url];

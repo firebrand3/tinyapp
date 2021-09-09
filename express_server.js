@@ -3,6 +3,7 @@ const app = express();
 const PORT = 8080; //default port 8080
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const bcrypt = require('bcrypt');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -64,9 +65,11 @@ app.get("/hello", (req, res) => {
 app.get("/urls", (req, res) => {
   const user = activeUser(req.cookies.user_id, users);
   if (!user) {
-    res.send("Please login or register");
+    return res.redirect("/login");
   }
-  let templateVars = { urls: urlDatabase, user: activeUser(req.cookies.user_id, users) };
+  const urls = urlsForUser(user.id, urlDatabase)
+  const templateVars = { urls, user: activeUser(req.cookies.user_id, users) };
+  console.log(urlDatabase)
   res.render("urls_index", templateVars);
 });
 
@@ -74,7 +77,8 @@ app.get("/urls", (req, res) => {
 app.post("/urls", (req, res) => {
   const shortURL = generateRandomString(6);
   const user = activeUser(req.cookies.user_id, users);
-  urlDatabase[shortURL] = {longURL: req.body.longURL, id: user.userID};
+  console.log(user);
+  urlDatabase[shortURL] = {longURL: req.body.longURL, userID: user.id};
   res.redirect("/urls");
   // res.redirect(`/urls/${shortURL}`);
 });
@@ -137,11 +141,10 @@ app.post("/urls/:shortURL/delete", (req, res) => {
   const shortURL = req.params.shortURL;
 
   if (user.id !== urlDatabase[shortURL].userID) {
-    res.send("log in with correct ID");
+    return res.status(401).send("log in with correct ID");
   }
-
-  delete urlDatabase[shortURL];
-  res.redirect("/urls");
+    delete urlDatabase[shortURL];
+    res.redirect("/urls");
 });
 
 // ***********************************************************************************************EDIT URL
@@ -217,7 +220,8 @@ app.post("/register", (req, res) => {
 });
 
 // ***********************************************************************************************LISTEN
-console.log(urlsForUser("user2RandomID", urlDatabase));
+
+// console.log(urlsForUser("user2RandomID", urlDatabase));
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
