@@ -29,10 +29,10 @@
           <% for(let url in urls) { %>
             <tr>
               <td>
-                <%= url %>
+                <a href="/u/<%= url %>"><%= url %></a>
               </td>
               <td>
-                <%= urls[url].longURL %>
+                <a href ="/u/<%= url %>"><%= urls[url].longURL %></a>
               </td>
               <td>
                 <form method="GET" action="/urls/<%= url %>">
