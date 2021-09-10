@@ -15,21 +15,21 @@ const verifyUser = (input, database) => {
   let user;
   for (let item in database) {
     if (database[item].email === input.email) {
-      user = item
-      return false
+      user = item;
+      return false;
     }
   }
   return database[user];
-}
+};
 
 
 const getUserInfo = (email, database) => {
   for (let user in database) {
     if (database[user].email === email) {
-      return database[user]
+      return database[user];
     }
   }
-}
+};
 
 const verifyUserEmail = (input, database) => {
   for (let user in database) {
@@ -38,19 +38,19 @@ const verifyUserEmail = (input, database) => {
     }
   }
   return false;
-}
+};
 
 
 const createUser = (user, database) => {
-  const user_id = generateRandomString(4); 
+  const userId = generateRandomString(4);
   const newUser = {
-    id: user_id,
+    id: userId,
     email: user.email,
     password: user.password,
   };
-  database[user_id] = newUser;
+  database[userId] = newUser;
   return newUser;
-}
+};
 
 
 const activeUser = (cookie, database) => {
@@ -73,4 +73,4 @@ const urlsForUser = (id, database) => {
   return urls;
 };
 
-module.exports = { generateRandomString, checkUrl, verifyUser, getUserInfo, createUser, verifyUserEmail, activeUser, urlsForUser }
+module.exports = { generateRandomString, checkUrl, verifyUser, getUserInfo, createUser, verifyUserEmail, activeUser, urlsForUser };
