@@ -1,4 +1,4 @@
-# Project name: TinyApp
+# TinyApp
 
 ## Project brief:
 
@@ -17,3 +17,16 @@ Type localhost:8080/ in your browser to launch the main webpage
 
 ## Screenshots:
 
+<img src="images/TinyApp_register.png">
+
+<img src="images/TinyApp_loging.png">
+
+<img src="images/TinyApp_login2.png">
+
+<img src="images/TinyApp_url_profile.png">
+
+<img src="images/TinyApp_create_url.png">
+
+<img src="images/TinyApp_url_profile2.png">
+
+<img src="images/TinyApp_edit_url.png">
